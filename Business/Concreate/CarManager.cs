@@ -31,18 +31,15 @@ namespace Business.Concreate
             _productDal.Delete(id);
         }
 
-        public List<Car> GetAll()
+        public void GetAll()
         {
-            var data = _productDal.GetAll();
-            Console.WriteLine(data + " GetAll");
-            return data;
+            _productDal.GetAll();
         }
 
-        public string GetById(int id)
+        public void GetById(int id)
         {
             var hasData = _productDal.GetById(id).ToString();
             Console.WriteLine(hasData + "GetById");
-            return _productDal.GetById(id);
         }
 
         public void Update(Car car)

@@ -36,14 +36,18 @@ namespace DataAccess.Concreate
             if (hasData != null) _cars.Remove(hasData);
         }
 
-        public List<Car> GetAll()
+        public void GetAll()
         {
-            return _cars;
+            foreach (var car in _cars)
+            {
+                Console.WriteLine((car.Id.ToString(), car.BrandId, car.ColorId, car.ModelYear, car.DailyPrice, car.Description).ToString());
+                Console.WriteLine();
+            }
         }
 
         public string GetById(int id)
         {
-            string hasData = _cars.FirstOrDefault(x => x.Id == id).ToString();
+            string hasData = _cars.SingleOrDefault(x => x.Id == id).ToString();
             return hasData;
 
         }
