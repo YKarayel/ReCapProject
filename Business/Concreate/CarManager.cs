@@ -22,8 +22,13 @@ namespace Business.Concreate
 
         public void Add(Car car)
         {
-            _carDal.Add(car);
-            Console.WriteLine("Car eklendi");
+            if (car.Description.Length >= 2 || car.DailyPrice>0)
+            {
+                _carDal.Add(car);
+                Console.WriteLine("Car eklendi");
+            }
+            else Console.WriteLine("Lütfen araba ismini yada günlük fiyatı kontrol ediniz.");
+
         }
 
         public void Delete(int id)
