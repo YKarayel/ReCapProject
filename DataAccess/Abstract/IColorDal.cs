@@ -5,10 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Business.Abstract
+namespace DataAccess.Abstract
 {
-    public interface ICarManager : IGenericService<Car>
+    public interface IColorDal : IEntityRepository<Color>
     {
-       
+
+
     }
 }

@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace Business.Abstract
 {
-    public interface ICarManager : IGenericService<Car>
+    public interface IColorManager : IGenericService<Color>
     {
-       
+        List<Car> GetCarsByColorId(int id);
+
     }
 }

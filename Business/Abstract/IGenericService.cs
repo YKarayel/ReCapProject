@@ -7,8 +7,13 @@ using System.Threading.Tasks;
 
 namespace Business.Abstract
 {
-    public interface ICarManager : IGenericService<Car>
+    public interface IGenericService<T>
     {
-       
+        T GetById(int id);
+        List<T> GetAll();
+        void Add(T nesne);
+        void Update(T nesne);
+        void Delete(int id);
+
     }
 }

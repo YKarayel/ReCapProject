@@ -1,5 +1,6 @@
 ﻿using Business.Abstract;
 using DataAccess.Abstract;
+using DataAccess.Concreate;
 using Entities.Concreate;
 using System;
 using System.Collections.Generic;
@@ -12,40 +13,41 @@ namespace Business.Concreate
     public class CarManager : ICarManager
     {
         
-        private readonly ICarDal _productDal;
+        private readonly ICarDal _carDal;
 
         public CarManager(ICarDal productDal)
         {
-            _productDal = productDal;
+            _carDal = productDal;
         }
 
         public void Add(Car car)
         {
+            _carDal.Add(car);
             Console.WriteLine("Car eklendi");
-            _productDal.Add(car);
         }
 
         public void Delete(int id)
         {
-            Console.WriteLine(id + " numaralı data silindi.");
-            _productDal.Delete(id);
-        }
-
-        public void GetAll()
-        {
-            _productDal.GetAll();
-        }
-
-        public void GetById(int id)
-        {
-            var hasData = _productDal.GetById(id).ToString();
-            Console.WriteLine(hasData + "GetById");
+            _carDal.Delete(id);
+            Console.WriteLine($"{id}'ye ait araba silindi.");
         }
 
         public void Update(Car car)
         {
+            _carDal.Update(car);
             Console.WriteLine("Car updatelendi.");
-            _productDal.Update(car);
+        }
+
+ 
+        public Car GetById(int id)
+        {
+            return _carDal.GetById(id);
+           
+        }
+
+        public List<Car> GetAll()
+        {
+            return _carDal.GetAll();
         }
     }
 }
