@@ -1,5 +1,4 @@
 ﻿using DataAccess.Abstract;
-using Entities.Abstract;
 using Entities.Concreate;
 using System;
 using System.Collections.Generic;
@@ -62,11 +61,6 @@ namespace DataAccess.Concreate
                 hasData.Name = entity.Name;
                 context.SaveChanges();
             }
-        }
-
-        public Brand Where(Expression<Func<Brand>> filter = null)
-        {
-            return null;
         }
 
         public List<Brand> Where(Expression<Func<Brand, bool>> filter = null)

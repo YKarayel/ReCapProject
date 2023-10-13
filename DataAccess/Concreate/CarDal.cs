@@ -31,7 +31,7 @@ namespace DataAccess.Concreate
         }
 
 
-
+        
         public List<Car> GetAll()
         {
             using (var context = new AppDbContext())

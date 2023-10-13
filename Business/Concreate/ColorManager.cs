@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using DataAccess.Concreate;
 using Entities.Concreate;
@@ -21,38 +22,38 @@ namespace Business.Concreate
             _carDal = carDal;
         }
 
-        public void Add(Color nesne)
+        public IResult Add(Color nesne)
         {
             _colorDal.Add(nesne);
-            Console.WriteLine("renk eklendi");
+            return new SuccessResult("renk eklendi");
         }
 
-        public void Delete(int id)
+        public IResult Delete(int id)
         {
             _colorDal.Delete(id);
-            Console.WriteLine($"{id}'ye ait renk silindi.");
+            return new SuccessResult($"{id}'ye ait renk silindi.");
         }
 
-        public List<Color> GetAll()
+        public IDataResult<List<Color>> GetAll()
         {
-            return _colorDal.GetAll();
+            return new SuccessDataResult<List<Color>>(_colorDal.GetAll());
         }
 
-        public Color GetById(int id)
+        public IDataResult<Color> GetById(int id)
         {
-            return _colorDal.GetById(id);
+            return new SuccessDataResult<Color>(_colorDal.GetById(id));
         }
 
-        public List<Car> GetCarsByColorId(int id)
+        public IDataResult<List<Car>> GetCarsByColorId(int id)
         {
             var hasData = _colorDal.GetById(id);
-            return _carDal.Where(x => x.BrandId == hasData.Id);
+            return new SuccessDataResult<List<Car>>(_carDal.Where(x => x.BrandId == hasData.Id));
         }
 
-        public void Update(Color nesne)
+        public IResult Update(Color nesne)
         {
             _colorDal.Update(nesne);
-            Console.WriteLine("Marka updatelendi.");
+            return new SuccessResult("Renk güncellendi");
         }
     }
 }

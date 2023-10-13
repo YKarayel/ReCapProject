@@ -9,19 +9,15 @@ using System.Threading.Tasks;
 
 namespace Entities.Concreate
 {
-    public class Car : IEntity
+    public class Rental : IEntity
     {
         [Key]
         public int Id { get; set; }
-        [ForeignKey("BrandId")]
-        public int BrandId { get; set; }
-        [ForeignKey("ColorId")]
-
-        public int ColorId { get; set; }
-        public string ModelYear { get; set; }
-        public double DailyPrice { get; set; }
-        public string Description { get; set; }
-
-
+        [ForeignKey("CarId")]
+        public int CarId { get; set; }
+        [ForeignKey("CustomerId")]
+        public int CustormerId { get; set; }
+        public DateTime RentDate { get; set; }
+        public DateTime? ReturnDate { get; set; }
     }
 }

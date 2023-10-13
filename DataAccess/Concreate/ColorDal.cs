@@ -64,7 +64,10 @@ namespace DataAccess.Concreate
 
         public List<Color> Where(Expression<Func<Color, bool>> filter = null)
         {
-            throw new NotImplementedException();
+            using (var context = new AppDbContext())
+            {
+                return context.Colors.Where(filter).ToList();
+            }
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using DataAccess.Concreate;
 using Entities.Concreate;
@@ -22,39 +23,38 @@ namespace Business.Concreate
             _carDal = carDal;
         }
 
-        public void Add(Brand nesne)
+        public IResult Add(Brand nesne)
         {
             _brandDal.Add(nesne);
-            Console.WriteLine("Marka eklendi");
+            return new SuccessResult("Nesne başarıyla eklendi");
         }
 
-        public void Delete(int id)
+        public IResult Delete(int id)
         {
             _brandDal.Delete(id);
-            Console.WriteLine($"{id}'ye ait marka silindi.");
+            return new SuccessResult($"{id}'ye ait marka silindi.");
         }
 
-        public List<Brand> GetAll()
+        public IDataResult<List<Brand>> GetAll()
         {
-            return _brandDal.GetAll();
+            return new SuccessDataResult<List<Brand>>(_brandDal.GetAll());
         }
 
-        public Brand GetById(int id)
+        public IDataResult<Brand> GetById(int id)
         {
-            return _brandDal.GetById(id);
+            return new SuccessDataResult<Brand>(_brandDal.GetById(id));
         }
 
-        public List<Car> GetCarsByBrandId(int id)
+        public IDataResult<List<Car>> GetCarsByBrandId(int id)
         {
             var hasData = _brandDal.GetById(id);
-            return _carDal.Where(x => x.BrandId == hasData.Id);
+            return new SuccessDataResult<List<Car>>(_carDal.Where(x => x.BrandId == hasData.Id));
         }
 
-        public void Update(Brand nesne)
+        public IResult Update(Brand nesne)
         {
             _brandDal.Update(nesne);
-            Console.WriteLine("Marka updatelendi.");
+            return new SuccessResult("Marka updatelendi");
         }
-
     }
 }

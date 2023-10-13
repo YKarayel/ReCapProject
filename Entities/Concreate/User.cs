@@ -4,24 +4,21 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Entities.Concreate
 {
-    public class Car : IEntity
+    public class User : IEntity
     {
         [Key]
         public int Id { get; set; }
-        [ForeignKey("BrandId")]
-        public int BrandId { get; set; }
-        [ForeignKey("ColorId")]
-
-        public int ColorId { get; set; }
-        public string ModelYear { get; set; }
-        public double DailyPrice { get; set; }
-        public string Description { get; set; }
-
-
+        [ForeignKey("CustomerId")]
+        public int CustomerId { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Email { get; set; }
+        public string Password { get; set; }
     }
 }
