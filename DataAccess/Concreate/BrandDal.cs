@@ -1,4 +1,5 @@
-﻿using DataAccess.Abstract;
+﻿using Core.Utilities.Results;
+using DataAccess.Abstract;
 using Entities.Concreate;
 using System;
 using System.Collections.Generic;
@@ -41,7 +42,12 @@ namespace DataAccess.Concreate
 
         public List<Brand> GetAll()
         {
-            throw new NotImplementedException();
+            using (var context = new AppDbContext())
+            {
+                var result = context.Brands.ToList();
+                return result;
+
+            }
         }
 
 
@@ -63,9 +69,14 @@ namespace DataAccess.Concreate
             }
         }
 
-        public List<Brand> Where(Expression<Func<Brand, bool>> filter = null)
+        public List<Brand> Where(Expression<Func<Brand, bool>> filter)
         {
-            throw new NotImplementedException();
+            using(var context = new AppDbContext()) 
+            {
+                var hasData = context.Brands.Where(filter);
+                return hasData.ToList();
+            }
+
         }
     }
 }

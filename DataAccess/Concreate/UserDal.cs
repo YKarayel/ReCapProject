@@ -25,7 +25,7 @@ namespace DataAccess.Concreate
         {
             using (var context = new AppDbContext())
             {
-                var user = context.Rentals.SingleOrDefault(x => x.Id == id);
+                var user = context.Users.SingleOrDefault(x => x.Id == id);
                 context.Remove(user);
                 context.SaveChanges();
             }
@@ -54,9 +54,9 @@ namespace DataAccess.Concreate
                 var user = context.Users.SingleOrDefault(x => x.Id == entity.Id);
                 user.CustomerId = entity.CustomerId;
                 user.Password = entity.Password;
-                user.FirstName = user.FirstName;
-                user.LastName = user.LastName;
-                user.Email = user.Email;
+                user.FirstName = entity.FirstName;
+                user.LastName = entity.LastName;
+                user.Email = entity.Email;
                 context.SaveChanges();
                 
             }

@@ -40,7 +40,10 @@ namespace DataAccess.Concreate
 
         public List<Color> GetAll()
         {
-            throw new NotImplementedException();
+            using (var context = new AppDbContext())
+            {
+                return context.Colors.ToList();
+            }
         }
 
 

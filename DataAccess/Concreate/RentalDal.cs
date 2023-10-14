@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Concreate
 {
-    public class RentalDal : IRentalsDal
+    public class RentalDal : IRentalDal
     {
         public void Add(Rental entity)
         {

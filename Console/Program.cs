@@ -3,38 +3,47 @@ using DataAccess.Abstract;
 using DataAccess.Concreate;
 using Entities.Concreate;
 
-//Car();
+
+
+
+
+
+Car();
 
 
 //User();
 
-Rent();
+//Rent();
 
-static void Get()
+static void Car()
 {
     var carManager = new CarManager(new CarDal());
 
 
-    foreach (var car in carManager.GetAll().Data)
-    {
-        Console.WriteLine(car.Id.ToString() + car.BrandId + car.ColorId + car.Description + car.DailyPrice + car.Description);
-    }
+    //foreach (var car in carManager.GetAll().Data)
+    //{
+    //    Console.WriteLine(car.Id.ToString() + car.BrandId + car.ColorId + car.Description + car.DailyPrice + car.Description);
+    //}
 
-    Console.WriteLine(carManager.GetById(2));
+    Console.WriteLine(carManager.GetById(1001));
+    carManager.Delete(1001);
+    Console.WriteLine(carManager.GetById(1001));
 }
 
 static void User()
 {
     var userManager = new UserManager(new UserDal());
 
-    Console.WriteLine(userManager.Add(new User { Email = "asdf@gmail.com", CustomerId = 1, FirstName = "Mehmet", LastName = "Karayel", Password = "Password12*" }).Message);
-    Console.WriteLine(userManager.GetById(1));
+    
+    Console.WriteLine(userManager.GetById(1001));
+    userManager.Delete(1001);
+    Console.WriteLine(userManager.GetById(1001));
 
 
 
-    var userlist = userManager.GetAll().Data;
-    foreach (var user in userlist)
-        Console.WriteLine($"{user.Id}  {user.FirstName}  {user.LastName}  {user.CustomerId}  {user.Email}  {user.Password}");
+    //var userlist = userManager.GetAll().Data;
+    //foreach (var user in userlist)
+    //    Console.WriteLine($"{user.Id}  {user.FirstName}  {user.LastName}  {user.CustomerId}  {user.Email}  {user.Password}");
 }
 
 static void Rent()

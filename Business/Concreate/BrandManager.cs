@@ -26,7 +26,7 @@ namespace Business.Concreate
         public IResult Add(Brand nesne)
         {
             _brandDal.Add(nesne);
-            return new SuccessResult("Nesne başarıyla eklendi");
+            return new SuccessResult("Marka başarıyla eklendi");
         }
 
         public IResult Delete(int id)
@@ -37,7 +37,8 @@ namespace Business.Concreate
 
         public IDataResult<List<Brand>> GetAll()
         {
-            return new SuccessDataResult<List<Brand>>(_brandDal.GetAll());
+            var result = _brandDal.GetAll();
+            return new SuccessDataResult<List<Brand>>(result);
         }
 
         public IDataResult<Brand> GetById(int id)
@@ -48,7 +49,9 @@ namespace Business.Concreate
         public IDataResult<List<Car>> GetCarsByBrandId(int id)
         {
             var hasData = _brandDal.GetById(id);
-            return new SuccessDataResult<List<Car>>(_carDal.Where(x => x.BrandId == hasData.Id));
+
+            var carbybrandid= _carDal.Where(x => x.BrandId == hasData.Id);
+            return new SuccessDataResult<List<Car>>(carbybrandid);
         }
 
         public IResult Update(Brand nesne)

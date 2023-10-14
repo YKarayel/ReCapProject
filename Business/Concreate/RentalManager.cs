@@ -12,9 +12,9 @@ namespace Business.Concreate
 {
     public class RentalManager : IRentalManager
     {
-        private readonly IRentalsDal _rentalsDal;
+        private readonly IRentalDal _rentalsDal;
 
-        public RentalManager(IRentalsDal rentalsDal)
+        public RentalManager(IRentalDal rentalsDal)
         {
             _rentalsDal = rentalsDal;
         }

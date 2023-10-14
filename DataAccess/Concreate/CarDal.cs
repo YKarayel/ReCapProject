@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Runtime.ExceptionServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -27,10 +28,9 @@ namespace DataAccess.Concreate
             {
                 var hasData = context.Cars.SingleOrDefault(x=> x.Id == id);
                 context.Cars.Remove(hasData);
+                context.SaveChanges();
             }
         }
-
-
         
         public List<Car> GetAll()
         {
@@ -66,7 +66,9 @@ namespace DataAccess.Concreate
         {
             using(var context = new AppDbContext()) 
             {
-                return context.Cars.Where(filter).ToList();
+
+                var hasData = context.Cars.Where(filter).ToList();
+                return hasData;
             }
         }
     }
