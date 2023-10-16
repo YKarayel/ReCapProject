@@ -1,4 +1,6 @@
 ﻿using Business.Abstract;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using DataAccess.Concreate;
@@ -13,7 +15,7 @@ namespace Business.Concreate
 {
     public class CarManager : ICarManager
     {
-        
+
         private readonly ICarDal _carDal;
 
         public CarManager(ICarDal productDal)
@@ -21,14 +23,13 @@ namespace Business.Concreate
             _carDal = productDal;
         }
 
+        [ValidationAspect(typeof(CarValidator))]
         public IResult Add(Car car)
         {
-            if (car.Description.Length >= 2 || car.DailyPrice>0)
-            {
-                _carDal.Add(car);
-                return new SuccessResult("Araba eklendi");
-            }
-            else return new ErrorResult("Lütfen araba ismini yada günlük fiyatı kontrol ediniz.");
+
+            _carDal.Add(car);
+            return new SuccessResult("Araba eklendi");
+
 
         }
 
@@ -40,15 +41,15 @@ namespace Business.Concreate
 
         public IResult Update(Car car)
         {
-            _carDal.Update(car); 
+            _carDal.Update(car);
             return new SuccessResult("Car updatelendi.");
         }
 
- 
+
         public IDataResult<Car> GetById(int id)
         {
             return new SuccessDataResult<Car>(_carDal.GetById(id));
-           
+
         }
 
         public IDataResult<List<Car>> GetAll()

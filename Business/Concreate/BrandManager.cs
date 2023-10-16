@@ -1,4 +1,6 @@
 ﻿using Business.Abstract;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using DataAccess.Concreate;
@@ -23,6 +25,7 @@ namespace Business.Concreate
             _carDal = carDal;
         }
 
+        [ValidationAspect(typeof(BrandValidator))]
         public IResult Add(Brand nesne)
         {
             _brandDal.Add(nesne);

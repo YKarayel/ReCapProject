@@ -1,4 +1,6 @@
 ﻿using Business.Abstract;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using DataAccess.Concreate;
@@ -21,6 +23,8 @@ namespace Business.Concreate
             _colorDal = colorDal;
             _carDal = carDal;
         }
+
+        [ValidationAspect(typeof(ColorValidator))]
 
         public IResult Add(Color nesne)
         {

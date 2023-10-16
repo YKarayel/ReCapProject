@@ -1,5 +1,8 @@
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
 using Business.Abstract;
 using Business.Concreate;
+using Business.DependecyResolvers.Autofac;
 using DataAccess.Abstract;
 using DataAccess.Concreate;
 
@@ -13,23 +16,11 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 
-
-//Services, Businesses
-builder.Services.AddSingleton<IBrandManager, BrandManager>();
-builder.Services.AddSingleton<ICarManager, CarManager>();
-builder.Services.AddSingleton<IColorManager, ColorManager>();
-builder.Services.AddSingleton<ICustomerManager, CustomerManager>();
-builder.Services.AddSingleton<IRentalManager, RentalManager>();
-builder.Services.AddSingleton<IUserManager, UserManager>();
-
-//Context, DataAccess
-builder.Services.AddSingleton<IBrandDal, BrandDal>();
-builder.Services.AddSingleton<ICarDal, CarDal>();
-builder.Services.AddSingleton<IColorDal, ColorDal>();
-builder.Services.AddSingleton<ICustomerDal, CustomerDal>();
-builder.Services.AddSingleton<IRentalDal, RentalDal>();
-builder.Services.AddSingleton<IUserDal, UserDal>(); 
-
+builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory())
+    .ConfigureContainer<ContainerBuilder>(builder =>
+    {
+        builder.RegisterModule(new AutofacBussinessModule());
+    });
 
 
 

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231013073631_UserAndCustomers")]
-    partial class UserAndCustomers
+    [Migration("20231016124435_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -40,6 +40,18 @@ namespace DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Brands");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Renault"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Audi"
+                        });
                 });
 
             modelBuilder.Entity("Entities.Concreate.Car", b =>
@@ -70,6 +82,26 @@ namespace DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Cars");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            BrandId = 1,
+                            ColorId = 1,
+                            DailyPrice = 100000.0,
+                            Description = "Hatchback",
+                            ModelYear = "2023"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            BrandId = 2,
+                            ColorId = 1,
+                            DailyPrice = 125000.0,
+                            Description = "Sedan",
+                            ModelYear = "2022"
+                        });
                 });
 
             modelBuilder.Entity("Entities.Concreate.Color", b =>
@@ -87,6 +119,18 @@ namespace DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Colors");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Black"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "White"
+                        });
                 });
 
             modelBuilder.Entity("Entities.Concreate.Customer", b =>
@@ -104,6 +148,13 @@ namespace DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Customers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CompanyName = "Agartha"
+                        });
                 });
 
             modelBuilder.Entity("Entities.Concreate.Rental", b =>
@@ -161,6 +212,26 @@ namespace DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CustomerId = 1,
+                            Email = "karayelyahya@gmail.com",
+                            FirstName = "Yahya",
+                            LastName = "Karayel",
+                            Password = "Password12*"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CustomerId = 1,
+                            Email = "ahmetkarayel@gmail.com",
+                            FirstName = "Ahmet",
+                            LastName = "Karayel",
+                            Password = "Password12*"
+                        });
                 });
 #pragma warning restore 612, 618
         }
