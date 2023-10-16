@@ -1,4 +1,6 @@
 ﻿using Business.Abstract;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concreate;
@@ -18,6 +20,8 @@ namespace Business.Concreate
         {
             _rentalsDal = rentalsDal;
         }
+
+        [ValidationAspect(typeof(RentalValidator))]
 
         public IResult Add(Rental nesne)
         {
