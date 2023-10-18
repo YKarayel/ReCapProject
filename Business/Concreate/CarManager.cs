@@ -8,6 +8,7 @@ using Entities.Concreate;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -17,10 +18,12 @@ namespace Business.Concreate
     {
 
         private readonly ICarDal _carDal;
+        private readonly ICarImageManager _carImageManager;
 
-        public CarManager(ICarDal productDal)
+        public CarManager(ICarDal productDal, ICarImageManager carImageManager)
         {
             _carDal = productDal;
+            _carImageManager = carImageManager;
         }
 
         [ValidationAspect(typeof(CarValidator))]
@@ -29,7 +32,6 @@ namespace Business.Concreate
 
             _carDal.Add(car);
             return new SuccessResult("Araba eklendi");
-
 
         }
 
@@ -48,13 +50,22 @@ namespace Business.Concreate
 
         public IDataResult<Car> GetById(int id)
         {
-            return new SuccessDataResult<Car>(_carDal.GetById(id));
+            var data = _carDal.GetById(id);
+            return new SuccessDataResult<Car>(data);
 
         }
-
         public IDataResult<List<Car>> GetAll()
         {
             return new SuccessDataResult<List<Car>>(_carDal.GetAll());
+        }
+
+        public IDataResult<List<Car>> Where(Expression<Func<Car, bool>> filter)
+        {
+            return new SuccessDataResult<List<Car>>(_carDal.Where(filter));
+        }
+        public IDataResult<List<CarImage>> CheckCarImages(int carId)
+        {
+            return _carImageManager.CheckCarImage(carId); //result is already incoming with SuccesDataResult from CarImageManager. There is no need to write another SuccessDataResult
         }
     }
 }

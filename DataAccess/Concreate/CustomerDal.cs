@@ -1,4 +1,5 @@
-﻿using Core.Entities;
+﻿using Castle.Core.Resource;
+using Core.Entities;
 using DataAccess.Abstract;
 using Entities.Concreate;
 using System;
@@ -31,11 +32,12 @@ namespace DataAccess.Concreate
             }
         }
 
-        public List<Customer> GetAll()
+        public List<Customer> GetAll(Expression<Func<Customer, bool>> filter = null)
         {
             using (var context = new AppDbContext())
             {
-                return context.Customers.ToList();
+                return filter == null ? context.Customers.ToList() : context.Customers.Where(filter).ToList();
+
             }
         }
 

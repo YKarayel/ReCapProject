@@ -10,9 +10,9 @@ namespace DataAccess.Abstract
 {
     public interface IEntityRepository<T> where T : class, IEntity
     {
-        List<T> GetAll();
+        List<T> GetAll(Expression<Func<T, bool>> filter = null);
         T GetById(int id);
-        List<T> Where(Expression<Func<T, bool>> filter = null);
+        List<T> Where(Expression<Func<T, bool>> filter);
         void Add(T entity);
         void Update(T entity);
         void Delete(int id);

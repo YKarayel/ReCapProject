@@ -37,6 +37,11 @@ namespace Business.Concreate
             _rentalsDal.Delete( id );
             return new SuccessResult("Kiralama başarılı bir şekilde silindi.");
         }
+        public IResult Update(Rental nesne)
+        {
+            _rentalsDal.Update(nesne);
+            return new SuccessResult("Kiralama başarılı bir şekilde güncellendi");
+        }
 
         public IDataResult<List<Rental>> GetAll()
         {
@@ -48,10 +53,6 @@ namespace Business.Concreate
             return new SuccessDataResult<Rental>(_rentalsDal.GetById(id));
         }
 
-        public IResult Update(Rental nesne)
-        {
-            _rentalsDal.Update( nesne );
-            return new SuccessResult("Kiralama başarılı bir şekilde güncellendi");
-        }
+
     }
 }

@@ -13,15 +13,12 @@ namespace Entities.Concreate
     {
         [Key]
         public int Id { get; set; }
-        [ForeignKey("BrandId")]
         public int BrandId { get; set; }
-        [ForeignKey("ColorId")]
-
         public int ColorId { get; set; }
+        public int CarImageId { get; set; }
         public string ModelYear { get; set; }
         public double DailyPrice { get; set; }
         public string Description { get; set; }
-
 
     }
 }

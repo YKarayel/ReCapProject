@@ -25,10 +25,8 @@ namespace Business.Concreate
 
         public IResult Add(User nesne)
         {
-                _userDal.Add(nesne);
-                return new SuccessResult("Kullanıcı başarılı bir şekilde eklendi.");
-           
-           
+            _userDal.Add(nesne);
+            return new SuccessResult("Kullanıcı başarılı bir şekilde eklendi.");
         }
 
         public IResult Delete(int id)
@@ -36,7 +34,11 @@ namespace Business.Concreate
             _userDal.Delete(id);
             return new SuccessResult("Kullanıcı başarılı bir şekilde silindi");
         }
-
+        public IResult Update(User nesne)
+        {
+            _userDal.Update(nesne);
+            return new SuccessResult("Kullanıcı güncellendi");
+        }
         public IDataResult<List<User>> GetAll()
         {
             return new SuccessDataResult<List<User>>(_userDal.GetAll());
@@ -45,12 +47,6 @@ namespace Business.Concreate
         public IDataResult<User> GetById(int id)
         {
             return new SuccessDataResult<User>(_userDal.GetById(id));
-        }
-
-        public IResult Update(User nesne)
-        {
-            _userDal.Update( nesne);
-            return new SuccessResult("Kullanıcı güncellendi");
         }
     }
 }

@@ -17,18 +17,18 @@ namespace Business.Concreate
     public class BrandManager : IBrandManager
     {
         private readonly IBrandDal _brandDal;
-        private readonly ICarDal _carDal;
+        private readonly ICarManager _carManager;
 
-        public BrandManager(IBrandDal brandDal, ICarDal carDal)
+        public BrandManager(IBrandDal brandDal, ICarManager carManager)
         {
             _brandDal = brandDal;
-            _carDal = carDal;
+            _carManager = carManager;
         }
 
         [ValidationAspect(typeof(BrandValidator))]
-        public IResult Add(Brand nesne)
+        public IResult Add(Brand brand)
         {
-            _brandDal.Add(nesne);
+            _brandDal.Add(brand);
             return new SuccessResult("Marka başarıyla eklendi");
         }
 
@@ -37,7 +37,11 @@ namespace Business.Concreate
             _brandDal.Delete(id);
             return new SuccessResult($"{id}'ye ait marka silindi.");
         }
-
+        public IResult Update(Brand brand)
+        {
+            _brandDal.Update(brand);
+            return new SuccessResult("Marka updatelendi");
+        }
         public IDataResult<List<Brand>> GetAll()
         {
             var result = _brandDal.GetAll();
@@ -51,16 +55,8 @@ namespace Business.Concreate
 
         public IDataResult<List<Car>> GetCarsByBrandId(int id)
         {
-            var hasData = _brandDal.GetById(id);
-
-            var carbybrandid= _carDal.Where(x => x.BrandId == hasData.Id);
-            return new SuccessDataResult<List<Car>>(carbybrandid);
-        }
-
-        public IResult Update(Brand nesne)
-        {
-            _brandDal.Update(nesne);
-            return new SuccessResult("Marka updatelendi");
+            var result= _carManager.Where(x => x.BrandId == id);
+            return new SuccessDataResult<List<Car>>(result.Data);
         }
     }
 }

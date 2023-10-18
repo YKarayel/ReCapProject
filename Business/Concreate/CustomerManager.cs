@@ -4,6 +4,7 @@ using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concreate;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,7 +35,11 @@ namespace Business.Concreate
             _customer.Delete(id);
             return new SuccessResult("Müşteri başarılı bir şekilde silindi");
         }
-
+        public IResult Update(Customer nesne)
+        {
+            _customer.Update(nesne);
+            return new SuccessResult("Müşteri başarılı bir şekilde güncellendi.");
+        }
         public IDataResult<List<Customer>> GetAll()
         {
             return new SuccessDataResult<List<Customer>>(_customer.GetAll());
@@ -43,12 +48,6 @@ namespace Business.Concreate
         public IDataResult<Customer> GetById(int id)
         {
             return new SuccessDataResult<Customer>(_customer.GetById(id));
-        }
-
-        public IResult Update(Customer nesne)
-        {
-            _customer.Update( nesne);
-            return new SuccessResult("Müşteri başarılı bir şekilde güncellendi.");
         }
     }
 }

@@ -33,12 +33,11 @@ namespace DataAccess.Concreate
             }
         }
 
-        public List<Rental> GetAll()
+        public List<Rental> GetAll(Expression<Func<Rental, bool>> filter = null)
         {
             using (var context = new AppDbContext())
             {
-                var rentals = context.Rentals.ToList();
-                return rentals;
+                return filter == null ? context.Rentals.ToList() : context.Rentals.Where(filter).ToList();
             }
         }
 

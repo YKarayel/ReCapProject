@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231016124435_init")]
-    partial class init
+    [Migration("20231018065551_CarImageUpdate")]
+    partial class CarImageUpdate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -65,6 +65,9 @@ namespace DataAccess.Migrations
                     b.Property<int>("BrandId")
                         .HasColumnType("int");
 
+                    b.Property<int>("CarImageId")
+                        .HasColumnType("int");
+
                     b.Property<int>("ColorId")
                         .HasColumnType("int");
 
@@ -88,6 +91,7 @@ namespace DataAccess.Migrations
                         {
                             Id = 1,
                             BrandId = 1,
+                            CarImageId = 0,
                             ColorId = 1,
                             DailyPrice = 100000.0,
                             Description = "Hatchback",
@@ -97,11 +101,35 @@ namespace DataAccess.Migrations
                         {
                             Id = 2,
                             BrandId = 2,
+                            CarImageId = 0,
                             ColorId = 1,
                             DailyPrice = 125000.0,
                             Description = "Sedan",
                             ModelYear = "2022"
                         });
+                });
+
+            modelBuilder.Entity("Entities.Concreate.CarImage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CarId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ImagePath")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UploadDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CarImages");
                 });
 
             modelBuilder.Entity("Entities.Concreate.Color", b =>

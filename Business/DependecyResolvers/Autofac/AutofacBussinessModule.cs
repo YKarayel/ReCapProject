@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Core.Utilities.Helpers;
 
 namespace Business.DependecyResolvers.Autofac
 {
@@ -27,14 +28,20 @@ namespace Business.DependecyResolvers.Autofac
             builder.RegisterType<CustomerManager>().As<ICustomerManager>().SingleInstance();
             builder.RegisterType<RentalManager>().As<IRentalManager>().SingleInstance();
             builder.RegisterType<UserManager>().As<IUserManager>().SingleInstance();
+            builder.RegisterType<CarImageManager>().As<ICarImageManager>().SingleInstance();
 
-            //Data Access Layer, 
+
+            //Data Access Layers and Helpers
             builder.RegisterType<BrandDal>().As<IBrandDal>().SingleInstance();
             builder.RegisterType<CarDal>().As<ICarDal>().SingleInstance();
             builder.RegisterType<ColorDal>().As<IColorDal>().SingleInstance();
             builder.RegisterType<CustomerDal>().As<ICustomerDal>().SingleInstance();
             builder.RegisterType<RentalDal>().As<IRentalDal>().SingleInstance();
             builder.RegisterType<UserDal>().As<IUserDal>().SingleInstance();
+            builder.RegisterType<CarImageDal>().As<ICarImageDal>().SingleInstance();
+            builder.RegisterType<FileHelper>().As<IFileHelper>().SingleInstance();
+
+
 
 
             var assembly = System.Reflection.Assembly.GetExecutingAssembly();

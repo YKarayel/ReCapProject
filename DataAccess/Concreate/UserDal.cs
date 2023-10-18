@@ -31,11 +31,11 @@ namespace DataAccess.Concreate
             }
         }
 
-        public List<User> GetAll()
+        public List<User> GetAll(Expression<Func<User, bool>> filter = null)
         {
             using (var context = new AppDbContext())
             {
-                return context.Users.ToList();
+                return filter == null ? context.Users.ToList() : context.Users.Where(filter).ToList();
             }
         }
 

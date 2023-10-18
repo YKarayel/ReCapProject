@@ -16,12 +16,12 @@ namespace Business.Concreate
     public class ColorManager : IColorManager
     {
         private readonly IColorDal _colorDal;
-        private readonly ICarDal _carDal;
+        private readonly ICarManager _carManager;
 
-        public ColorManager(IColorDal colorDal, ICarDal carDal)
+        public ColorManager(IColorDal colorDal, ICarManager carManager)
         {
             _colorDal = colorDal;
-            _carDal = carDal;
+            _carManager = carManager;
         }
 
         [ValidationAspect(typeof(ColorValidator))]
@@ -37,7 +37,11 @@ namespace Business.Concreate
             _colorDal.Delete(id);
             return new SuccessResult($"{id}'ye ait renk silindi.");
         }
-
+        public IResult Update(Color nesne)
+        {
+            _colorDal.Update(nesne);
+            return new SuccessResult("Renk güncellendi");
+        }
         public IDataResult<List<Color>> GetAll()
         {
             return new SuccessDataResult<List<Color>>(_colorDal.GetAll());
@@ -50,14 +54,9 @@ namespace Business.Concreate
 
         public IDataResult<List<Car>> GetCarsByColorId(int id)
         {
-            var hasData = _colorDal.GetById(id);
-            return new SuccessDataResult<List<Car>>(_carDal.Where(x => x.BrandId == hasData.Id));
+            return new SuccessDataResult<List<Car>>(_carManager.Where(x => x.ColorId== id).Data);
         }
 
-        public IResult Update(Color nesne)
-        {
-            _colorDal.Update(nesne);
-            return new SuccessResult("Renk güncellendi");
-        }
+
     }
 }

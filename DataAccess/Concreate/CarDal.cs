@@ -32,11 +32,11 @@ namespace DataAccess.Concreate
             }
         }
         
-        public List<Car> GetAll()
+        public List<Car> GetAll(Expression<Func<Car, bool>> filter = null)
         {
             using (var context = new AppDbContext())
             {
-                return context.Cars.ToList();
+                return filter == null ? context.Cars.ToList() : context.Cars.Where(filter).ToList();
             }
         }
 
@@ -44,7 +44,8 @@ namespace DataAccess.Concreate
         {
             using (var context = new AppDbContext())
             {
-                return context.Cars.SingleOrDefault(x=>x.Id == id);
+                var data = context.Cars.SingleOrDefault(x => x.Id == id);
+                return data;
             }
         }
 
@@ -58,6 +59,7 @@ namespace DataAccess.Concreate
                 hasData.ColorId = entity.ColorId;
                 hasData.DailyPrice = entity.DailyPrice;
                 hasData.Description = entity.Description;
+                hasData.CarImageId = entity.CarImageId;
                 context.SaveChanges();
             }
         }

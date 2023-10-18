@@ -10,12 +10,22 @@ namespace DataAccess.Concreate
 {
     public class AppDbContext : DbContext
     {
+        public DbSet<Brand> Brands { get; set; }
+        public DbSet<Car> Cars { get; set; }
+        public DbSet<Color> Colors { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Customer> Customers { get; set; }
+        public DbSet<Rental> Rentals { get; set; }
+        public DbSet<CarImage> CarImages { get; set; }
+
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=ReCapProject;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False");
+            optionsBuilder.UseSqlServer("Data Source=localhost;Initial Catalog=ReCapProject;User ID=sa;Password=Password12*;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False");
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
             modelBuilder.Entity<Color>().HasData(
 
                  new Color
@@ -94,21 +104,7 @@ namespace DataAccess.Concreate
                     Password = "Password12*"
                 });
 
-
-
-
-
-
             base.OnModelCreating(modelBuilder);
         }
-        public DbSet<Brand> Brands { get; set; }
-        public DbSet<Car> Cars { get; set; }
-        public DbSet<Color> Colors { get; set; }
-        public DbSet<User> Users { get; set; }
-        public DbSet<Customer> Customers { get; set; }
-
-        public DbSet<Rental> Rentals { get; set; }
-
-
     }
 }

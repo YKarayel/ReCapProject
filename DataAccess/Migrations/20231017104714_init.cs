@@ -77,8 +77,8 @@ namespace DataAccess.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CarId = table.Column<int>(type: "int", nullable: false),
                     CustormerId = table.Column<int>(type: "int", nullable: false),
-                    RentDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ReturnDate = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    RentDate = table.Column<DateTime>(type: "SmallDateTime", nullable: false),
+                    ReturnDate = table.Column<DateTime>(type: "SmallDateTime", nullable: true)
                 },
                 constraints: table =>
                 {

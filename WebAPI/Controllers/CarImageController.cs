@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Business.Concreate;
 using Entities.Concreate;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -7,19 +8,19 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CarController : ControllerBase
+    public class CarImageController : ControllerBase
     {
-        private readonly ICarManager _carManager;
+        private readonly ICarImageManager _carImageManager;
 
-        public CarController(ICarManager carManager)
+        public CarImageController(ICarImageManager carImageManager)
         {
-            _carManager = carManager;
+            _carImageManager = carImageManager;
         }
 
         [HttpGet("getall")]
         public IActionResult GetAll()
         {
-            var result = _carManager.GetAll();
+            var result = _carImageManager.GetAll();
             if (result.Success)
                 return Ok(result.Data);
 
@@ -28,7 +29,7 @@ namespace WebAPI.Controllers
         [HttpDelete("delete")]
         public IActionResult Delete(int id)
         {
-            var result = _carManager.Delete(id);
+            var result = _carImageManager.Delete(id);
             if (result.Success)
                 return Ok(result);
 
@@ -36,9 +37,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("add")]
-        public IActionResult Add(Car car)
+        public IActionResult Add([FromForm]IFormFile file, [FromForm] CarImage carImage)
         {
-            var result = _carManager.Add(car);
+            var result = _carImageManager.Add(file, carImage);
             if (result.Success)
                 return Ok(result);
 
@@ -47,9 +48,9 @@ namespace WebAPI.Controllers
 
 
         [HttpPut("update")]
-        public IActionResult Update(Car car)
+        public IActionResult Update([FromForm] IFormFile file, [FromForm] CarImage carImage)
         {
-            var result = _carManager.Update(car);
+            var result = _carImageManager.Update(file, carImage);
             if (result.Success)
                 return Ok(result);
 
@@ -59,16 +60,7 @@ namespace WebAPI.Controllers
         [HttpGet("getbyid")]
         public IActionResult GetById(int id)
         {
-            var result = _carManager.GetById(id);
-            if (result.Success)
-                return Ok(result.Data);
-
-            return BadRequest(result);
-        }
-        [HttpGet("GetImagesByCarId")]
-        public IActionResult GetImagesByCarId(int id)
-        {
-            var result = _carManager.CheckCarImages(id);
+            var result = _carImageManager.GetById(id);
             if (result.Success)
                 return Ok(result.Data);
 
