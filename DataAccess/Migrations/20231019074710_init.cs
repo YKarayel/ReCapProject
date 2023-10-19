@@ -27,6 +27,21 @@ namespace DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "CarImages",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CarId = table.Column<int>(type: "int", nullable: false),
+                    ImagePath = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UploadDate = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CarImages", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Cars",
                 columns: table => new
                 {
@@ -34,6 +49,7 @@ namespace DataAccess.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     BrandId = table.Column<int>(type: "int", nullable: false),
                     ColorId = table.Column<int>(type: "int", nullable: false),
+                    CarImageId = table.Column<int>(type: "int", nullable: false),
                     ModelYear = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DailyPrice = table.Column<double>(type: "float", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false)
@@ -77,8 +93,8 @@ namespace DataAccess.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CarId = table.Column<int>(type: "int", nullable: false),
                     CustormerId = table.Column<int>(type: "int", nullable: false),
-                    RentDate = table.Column<DateTime>(type: "SmallDateTime", nullable: false),
-                    ReturnDate = table.Column<DateTime>(type: "SmallDateTime", nullable: true)
+                    RentDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ReturnDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -113,11 +129,11 @@ namespace DataAccess.Migrations
 
             migrationBuilder.InsertData(
                 table: "Cars",
-                columns: new[] { "Id", "BrandId", "ColorId", "DailyPrice", "Description", "ModelYear" },
+                columns: new[] { "Id", "BrandId", "CarImageId", "ColorId", "DailyPrice", "Description", "ModelYear" },
                 values: new object[,]
                 {
-                    { 1, 1, 1, 100000.0, "Hatchback", "2023" },
-                    { 2, 2, 1, 125000.0, "Sedan", "2022" }
+                    { 1, 1, 0, 1, 100000.0, "Hatchback", "2023" },
+                    { 2, 2, 0, 1, 125000.0, "Sedan", "2022" }
                 });
 
             migrationBuilder.InsertData(
@@ -149,6 +165,9 @@ namespace DataAccess.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Brands");
+
+            migrationBuilder.DropTable(
+                name: "CarImages");
 
             migrationBuilder.DropTable(
                 name: "Cars");
