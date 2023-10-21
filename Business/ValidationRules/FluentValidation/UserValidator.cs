@@ -12,10 +12,10 @@ namespace Business.ValidationRules.FluentValidation
     {
         public UserValidator()
         {
-            RuleFor(u => u.Email).EmailAddress().WithMessage("Lütfen uygun bir email giriniz");
-            RuleFor(u => u.FirstName).MinimumLength(3).WithMessage("İsim 3 karakterden az olamaz");
-            RuleFor(u => u.LastName).MinimumLength(3).WithMessage("Soyisim 3 karakterden az olamaz");
-            RuleFor(u => u.CustomerId).NotEmpty();
+            //RuleFor(u => u.Email).EmailAddress().WithMessage("Lütfen uygun bir email giriniz");
+            //RuleFor(u => u.FirstName).MinimumLength(3).WithMessage("İsim 3 karakterden az olamaz");
+            //RuleFor(u => u.LastName).MinimumLength(3).WithMessage("Soyisim 3 karakterden az olamaz");
+           
 
 
 

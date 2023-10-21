@@ -11,14 +11,15 @@ namespace Entities.Concreate
 {
     public class Car : IEntity
     {
-        [Key]
         public int Id { get; set; }
-        public int BrandId { get; set; }
-        public int ColorId { get; set; }
-        public int CarImageId { get; set; }
-        public string ModelYear { get; set; }
+        public int ModelYear { get; set; }
+
         public double DailyPrice { get; set; }
         public string Description { get; set; }
+		public int? RentalId { get; set; }
+		public int? CarImageId { get; set; }
+		public int ColorId { get; set; }
+		public int BrandId { get; set; }
 
-    }
+	}
 }

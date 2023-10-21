@@ -29,7 +29,6 @@ namespace Business.Concreate
         [ValidationAspect(typeof(CarValidator))]
         public IResult Add(Car car)
         {
-
             _carDal.Add(car);
             return new SuccessResult("Araba eklendi");
 

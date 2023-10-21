@@ -13,6 +13,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Core.Utilities.Helpers;
+using System.IdentityModel.Tokens.Jwt;
+using Microsoft.AspNetCore.Http;
+using Core.Utilities.Security.JWT;
 
 namespace Business.DependecyResolvers.Autofac
 {
@@ -29,10 +32,12 @@ namespace Business.DependecyResolvers.Autofac
             builder.RegisterType<RentalManager>().As<IRentalManager>().SingleInstance();
             builder.RegisterType<UserManager>().As<IUserManager>().SingleInstance();
             builder.RegisterType<CarImageManager>().As<ICarImageManager>().SingleInstance();
+			builder.RegisterType<AuthManager>().As<IAuthService>();
 
 
-            //Data Access Layers and Helpers
-            builder.RegisterType<BrandDal>().As<IBrandDal>().SingleInstance();
+
+			//Data Access Layers and Helpers
+			builder.RegisterType<BrandDal>().As<IBrandDal>().SingleInstance();
             builder.RegisterType<CarDal>().As<ICarDal>().SingleInstance();
             builder.RegisterType<ColorDal>().As<IColorDal>().SingleInstance();
             builder.RegisterType<CustomerDal>().As<ICustomerDal>().SingleInstance();
@@ -40,11 +45,15 @@ namespace Business.DependecyResolvers.Autofac
             builder.RegisterType<UserDal>().As<IUserDal>().SingleInstance();
             builder.RegisterType<CarImageDal>().As<ICarImageDal>().SingleInstance();
             builder.RegisterType<FileHelper>().As<IFileHelper>().SingleInstance();
+			builder.RegisterType<JwtHelper>().As<ITokenHelper>();
+			builder.RegisterType<HttpContextAccessor>().As<IHttpContextAccessor>();
 
 
 
 
-            var assembly = System.Reflection.Assembly.GetExecutingAssembly();
+
+
+			var assembly = System.Reflection.Assembly.GetExecutingAssembly();
 
             builder.RegisterAssemblyTypes(assembly).AsImplementedInterfaces()
                 .EnableInterfaceInterceptors(new ProxyGenerationOptions()

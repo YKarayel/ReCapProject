@@ -1,4 +1,5 @@
 ﻿using Core.Entities;
+using Core.Entities.Concrete;
 using DataAccess.Abstract;
 using Entities.Concreate;
 using System;
@@ -52,8 +53,8 @@ namespace DataAccess.Concreate
             using (var context = new AppDbContext())
             {
                 var user = context.Users.SingleOrDefault(x => x.Id == entity.Id);
-                user.CustomerId = entity.CustomerId;
-                user.Password = entity.Password;
+                //user.CustomerId = entity.CustomerId;
+                //user.Password = entity.Password;
                 user.FirstName = entity.FirstName;
                 user.LastName = entity.LastName;
                 user.Email = entity.Email;
@@ -68,6 +69,28 @@ namespace DataAccess.Concreate
             {
                 return context.Users.Where(filter).ToList();
 
+            }
+        }
+
+		public User Get(Expression<Func<User, bool>> filter)
+		{
+			using (var context = new AppDbContext())
+			{
+				return context.Users.SingleOrDefault(filter);
+
+			}
+		}
+		public List<OperationClaim> GetClaims(User user)
+        {
+
+            using (var context = new AppDbContext())
+            {
+                var result = from operationClaim in context.OperationClaims
+                             join userOperationClaim in context.UserOperationsClaims
+                                 on operationClaim.Id equals userOperationClaim.OperationClaimId
+                             where userOperationClaim.UserId == user.Id
+                             select new OperationClaim { Id = operationClaim.Id, Name = operationClaim.Name };
+                return result.ToList();
             }
         }
     }

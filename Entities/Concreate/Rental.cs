@@ -14,11 +14,14 @@ namespace Entities.Concreate
     {
         [Key]
         public int Id { get; set; }
-        [ForeignKey("CarId")]
-        public int CarId { get; set; }
-        [ForeignKey("CustomerId")]
-        public int CustormerId { get; set; }
+        
+        
         public DateTime RentDate { get; set; }
         public DateTime? ReturnDate { get; set; }
-    }
+		public int CarId { get; set; }
+		public int CustormerId { get; set; }
+
+
+        
+	}
 }

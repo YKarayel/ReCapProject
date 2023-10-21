@@ -16,12 +16,10 @@ namespace Business.ValidationRules.FluentValidation
             RuleFor(p => p.DailyPrice).GreaterThan(100).WithMessage("Günlük Fiyat 100'ün üzerinde olmalı");
 
             RuleFor(p => p.ModelYear).NotEmpty();
-            RuleFor(p => p.ModelYear).MinimumLength(4).WithMessage("Model yılı en az 4 basamaklı olmalı");
-            RuleFor(p => p.ColorId).NotEmpty();
+            RuleFor(p => p.ModelYear).GreaterThan(1990).LessThan(2023).WithMessage("Model yılı 1990 ile 2023 arasında olabilir");
+
+			RuleFor(p => p.ColorId).NotEmpty();
             RuleFor(p => p.BrandId).NotEmpty();
-
-
-
 
         }
     }

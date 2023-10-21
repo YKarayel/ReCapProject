@@ -4,6 +4,7 @@ using DataAccess.Concreate;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231019122904_init")]
+    partial class init
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -107,6 +110,14 @@ namespace DataAccess.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("BrandId");
+
+                    b.HasIndex("CarImageId");
+
+                    b.HasIndex("ColorId");
+
+                    b.HasIndex("RentalId");
 
                     b.ToTable("Cars");
 
@@ -313,6 +324,8 @@ namespace DataAccess.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CustormerId");
+
                     b.ToTable("Rentals");
 
                     b.HasData(
@@ -321,24 +334,24 @@ namespace DataAccess.Migrations
                             Id = 1,
                             CarId = 1,
                             CustormerId = 1,
-                            RentDate = new DateTime(2023, 10, 19, 15, 48, 40, 602, DateTimeKind.Local).AddTicks(8260),
-                            ReturnDate = new DateTime(2023, 10, 19, 15, 48, 40, 602, DateTimeKind.Local).AddTicks(8269)
+                            RentDate = new DateTime(2023, 10, 19, 15, 29, 4, 596, DateTimeKind.Local).AddTicks(4362),
+                            ReturnDate = new DateTime(2023, 10, 19, 15, 29, 4, 596, DateTimeKind.Local).AddTicks(4371)
                         },
                         new
                         {
                             Id = 2,
                             CarId = 4,
                             CustormerId = 2,
-                            RentDate = new DateTime(2023, 10, 19, 15, 48, 40, 602, DateTimeKind.Local).AddTicks(8272),
-                            ReturnDate = new DateTime(2023, 10, 19, 15, 48, 40, 602, DateTimeKind.Local).AddTicks(8273)
+                            RentDate = new DateTime(2023, 10, 19, 15, 29, 4, 596, DateTimeKind.Local).AddTicks(4374),
+                            ReturnDate = new DateTime(2023, 10, 19, 15, 29, 4, 596, DateTimeKind.Local).AddTicks(4375)
                         },
                         new
                         {
                             Id = 3,
                             CarId = 6,
                             CustormerId = 5,
-                            RentDate = new DateTime(2023, 10, 19, 15, 48, 40, 602, DateTimeKind.Local).AddTicks(8274),
-                            ReturnDate = new DateTime(2023, 10, 19, 15, 48, 40, 602, DateTimeKind.Local).AddTicks(8274)
+                            RentDate = new DateTime(2023, 10, 19, 15, 29, 4, 596, DateTimeKind.Local).AddTicks(4376),
+                            ReturnDate = new DateTime(2023, 10, 19, 15, 29, 4, 596, DateTimeKind.Local).AddTicks(4376)
                         });
                 });
 
@@ -370,6 +383,8 @@ namespace DataAccess.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CustomerId");
 
                     b.ToTable("Users");
 
@@ -410,6 +425,59 @@ namespace DataAccess.Migrations
                             LastName = "Tunç",
                             Password = "Password12*"
                         });
+                });
+
+            modelBuilder.Entity("Entities.Concreate.Car", b =>
+                {
+                    b.HasOne("Entities.Concreate.Brand", "Brand")
+                        .WithMany()
+                        .HasForeignKey("BrandId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Entities.Concreate.CarImage", "CarImage")
+                        .WithMany()
+                        .HasForeignKey("CarImageId");
+
+                    b.HasOne("Entities.Concreate.Color", "Color")
+                        .WithMany()
+                        .HasForeignKey("ColorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Entities.Concreate.Rental", "Rental")
+                        .WithMany()
+                        .HasForeignKey("RentalId");
+
+                    b.Navigation("Brand");
+
+                    b.Navigation("CarImage");
+
+                    b.Navigation("Color");
+
+                    b.Navigation("Rental");
+                });
+
+            modelBuilder.Entity("Entities.Concreate.Rental", b =>
+                {
+                    b.HasOne("Entities.Concreate.Customer", "Customer")
+                        .WithMany()
+                        .HasForeignKey("CustormerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Customer");
+                });
+
+            modelBuilder.Entity("Entities.Concreate.User", b =>
+                {
+                    b.HasOne("Entities.Concreate.Customer", "Customers")
+                        .WithMany()
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Customers");
                 });
 #pragma warning restore 612, 618
         }

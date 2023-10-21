@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231019074710_init")]
-    partial class init
+    [Migration("20231019124840_init2")]
+    partial class init2
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -45,12 +45,37 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 1,
-                            Name = "Renault"
+                            Name = "Honda"
                         },
                         new
                         {
                             Id = 2,
-                            Name = "Audi"
+                            Name = "Opel"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Kia"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Toyota"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Renault"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Name = "Hyundai"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Name = "Ferrari"
                         });
                 });
 
@@ -65,7 +90,7 @@ namespace DataAccess.Migrations
                     b.Property<int>("BrandId")
                         .HasColumnType("int");
 
-                    b.Property<int>("CarImageId")
+                    b.Property<int?>("CarImageId")
                         .HasColumnType("int");
 
                     b.Property<int>("ColorId")
@@ -78,9 +103,11 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ModelYear")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("ModelYear")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("RentalId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -90,22 +117,65 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 1,
-                            BrandId = 1,
-                            CarImageId = 0,
+                            BrandId = 2,
                             ColorId = 1,
                             DailyPrice = 100000.0,
                             Description = "Hatchback",
-                            ModelYear = "2023"
+                            ModelYear = 2023
                         },
                         new
                         {
                             Id = 2,
-                            BrandId = 2,
-                            CarImageId = 0,
-                            ColorId = 1,
+                            BrandId = 5,
+                            ColorId = 2,
                             DailyPrice = 125000.0,
+                            Description = "Hatchback",
+                            ModelYear = 2023
+                        },
+                        new
+                        {
+                            Id = 3,
+                            BrandId = 1,
+                            ColorId = 5,
+                            DailyPrice = 115000.0,
                             Description = "Sedan",
-                            ModelYear = "2022"
+                            ModelYear = 2022
+                        },
+                        new
+                        {
+                            Id = 4,
+                            BrandId = 4,
+                            ColorId = 4,
+                            DailyPrice = 105000.0,
+                            Description = "Sedan",
+                            ModelYear = 2021
+                        },
+                        new
+                        {
+                            Id = 5,
+                            BrandId = 3,
+                            ColorId = 3,
+                            DailyPrice = 135000.0,
+                            Description = "Hatchback",
+                            ModelYear = 2023
+                        },
+                        new
+                        {
+                            Id = 6,
+                            BrandId = 6,
+                            ColorId = 6,
+                            DailyPrice = 130000.0,
+                            Description = "Sedan",
+                            ModelYear = 2022
+                        },
+                        new
+                        {
+                            Id = 7,
+                            BrandId = 7,
+                            ColorId = 5,
+                            DailyPrice = 175000.0,
+                            Description = "Spor",
+                            ModelYear = 2023
                         });
                 });
 
@@ -151,12 +221,32 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 1,
-                            Name = "Black"
+                            Name = "Siyah"
                         },
                         new
                         {
                             Id = 2,
-                            Name = "White"
+                            Name = "Beyaz"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Lacivert"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Kahverengi"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Turuncu"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Name = "Kırmızı"
                         });
                 });
 
@@ -181,6 +271,26 @@ namespace DataAccess.Migrations
                         {
                             Id = 1,
                             CompanyName = "Agartha"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CompanyName = "Tübitak"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CompanyName = "Aselsan"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CompanyName = "Erdemir"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CompanyName = "Kardemir"
                         });
                 });
 
@@ -207,6 +317,32 @@ namespace DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Rentals");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CarId = 1,
+                            CustormerId = 1,
+                            RentDate = new DateTime(2023, 10, 19, 15, 48, 40, 602, DateTimeKind.Local).AddTicks(8260),
+                            ReturnDate = new DateTime(2023, 10, 19, 15, 48, 40, 602, DateTimeKind.Local).AddTicks(8269)
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CarId = 4,
+                            CustormerId = 2,
+                            RentDate = new DateTime(2023, 10, 19, 15, 48, 40, 602, DateTimeKind.Local).AddTicks(8272),
+                            ReturnDate = new DateTime(2023, 10, 19, 15, 48, 40, 602, DateTimeKind.Local).AddTicks(8273)
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CarId = 6,
+                            CustormerId = 5,
+                            RentDate = new DateTime(2023, 10, 19, 15, 48, 40, 602, DateTimeKind.Local).AddTicks(8274),
+                            ReturnDate = new DateTime(2023, 10, 19, 15, 48, 40, 602, DateTimeKind.Local).AddTicks(8274)
+                        });
                 });
 
             modelBuilder.Entity("Entities.Concreate.User", b =>
@@ -253,10 +389,28 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 2,
-                            CustomerId = 1,
-                            Email = "ahmetkarayel@gmail.com",
-                            FirstName = "Ahmet",
-                            LastName = "Karayel",
+                            CustomerId = 2,
+                            Email = "arımete@gmail.com",
+                            FirstName = "Mete",
+                            LastName = "Arı",
+                            Password = "Password12*"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CustomerId = 4,
+                            Email = "sadimehmet@gmail.com",
+                            FirstName = "Mehmet",
+                            LastName = "Sadi",
+                            Password = "Password12*"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CustomerId = 5,
+                            Email = "tuncece@gmail.com",
+                            FirstName = "Ece",
+                            LastName = "Tunç",
                             Password = "Password12*"
                         });
                 });
