@@ -1,5 +1,6 @@
 ﻿using Business.Abstract;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Caching;
 using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
@@ -27,32 +28,38 @@ namespace Business.Concreate
         }
 
         [ValidationAspect(typeof(CarValidator))]
-        public IResult Add(Car car)
+		[CacheRemoveAspect("ICarService.Get")]
+		public IResult Add(Car car)
         {
             _carDal.Add(car);
             return new SuccessResult("Araba eklendi");
 
         }
 
-        public IResult Delete(int id)
+        [ValidationAspect(typeof(CarValidator))]
+		[CacheRemoveAspect("ICarService.Get")]
+		public IResult Delete(int id)
         {
             _carDal.Delete(id);
             return new SuccessResult($"{id}'ye ait araba silindi.");
         }
 
+        [ValidationAspect(typeof(CarValidator))]
+        [CacheRemoveAspect("ICarService.Get")]
         public IResult Update(Car car)
         {
             _carDal.Update(car);
             return new SuccessResult("Car updatelendi.");
         }
 
-
-        public IDataResult<Car> GetById(int id)
+		[CacheAspect]
+		public IDataResult<Car> GetById(int id)
         {
             var data = _carDal.GetById(id);
             return new SuccessDataResult<Car>(data);
 
         }
+        [CacheAspect]
         public IDataResult<List<Car>> GetAll()
         {
             return new SuccessDataResult<List<Car>>(_carDal.GetAll());

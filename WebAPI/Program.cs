@@ -3,6 +3,9 @@ using Autofac.Extensions.DependencyInjection;
 using Business.Abstract;
 using Business.Concreate;
 using Business.DependecyResolvers.Autofac;
+using Core.DependecyResolvers;
+using Core.Extensions;
+using Core.Utilities.IoC;
 using DataAccess.Abstract;
 using DataAccess.Concreate;
 
@@ -22,7 +25,10 @@ builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory())
         builder.RegisterModule(new AutofacBussinessModule());
     });
 
-
+builder.Services.AddDependecyResolvers(new ICoreModule[]
+{
+	new CoreModule()
+});
 
 
 var app = builder.Build();
